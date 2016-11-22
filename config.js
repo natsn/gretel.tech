@@ -6,6 +6,8 @@
 var path = require('path'),
     config;
 
+console.log(process.env)
+
 config = {
     // ### Production
     // When running Ghost in the wild, use the production environment.
@@ -40,8 +42,16 @@ config = {
     development: {
         // The url to use when providing links to the site, E.g. in RSS and email.
         // Change this to your Ghost blog's published URL.
-        url: 'http://localhost:2368',
-
+        url: process.env.URL,
+        storage: {
+            active: 'ghost-s3',
+            'ghost-s3': {
+                accessKeyId: process.env.S3_ACCESSKEY,
+                secretAccessKey: process.env.S3_SECRETKEY,
+                bucket: process.env.S3_BUCKETNAME,
+                region: process.env.S3_BUCKETREGION
+            }
+        },
         // Example refferer policy
         // Visit https://www.w3.org/TR/referrer-policy/ for instructions
         // default 'origin-when-cross-origin',
