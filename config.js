@@ -11,7 +11,7 @@ config = {
     // When running Ghost in the wild, use the production environment.
     // Configure your URL and mail settings here
     production: {
-        url: 'http://gretel.tech',
+        url: process.env.URL,
         mail: {},
         database: {
             client: 'sqlite3',
@@ -24,7 +24,16 @@ config = {
         server: {
             host: '0.0.0.0',
             port: '2368'
-        }
+        },
+        storage: {
+            active: 'ghost-s3',
+            'ghost-s3': {
+                accessKeyId: process.env.S3_ACCESSKEY,
+                secretAccessKey: process.env.S3_SECRETKEY,
+                bucket: process.env.S3_BUCKETNAME,
+                region: process.env.S3_BUCKETREGION
+            }
+        },
     },
 
     // ### Development **(default)**
